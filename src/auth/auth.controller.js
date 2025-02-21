@@ -1,12 +1,15 @@
 import userService from '../user/user.service.js';
 import authService from './auth.service.js';
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const register = async (req, res) => {
 	try {
 		const user = await userService.createOne(req.body);
 
-		const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+		const token = jwt.sign({ sub: user.id }, process.env.JWT_SECRET, {
 			expiresIn: '7d',
 		});
 
@@ -35,7 +38,7 @@ const login = async (req, res) => {
 			return res.status(400).json({ error: 'Invalid credentials' });
 		}
 
-		const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+		const token = jwt.sign({ sub: user.id }, process.env.JWT_SECRET, {
 			expiresIn: '7d',
 		});
 

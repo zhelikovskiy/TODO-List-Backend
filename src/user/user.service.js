@@ -56,6 +56,30 @@ const updateOne = async (id, data) => {
 	}
 };
 
+const updatePassword = async (id, data) => {
+	try {
+		const { oldPassword, newPassword } = data;
+
+		const user = await User.findByPk(id);
+
+		if (!user) {
+			throw new Error('User not found');
+		}
+
+		if (!bcrypt.compare(oldPassword, user.hashedPassword)) {
+			throw new Error('Invalid password');
+		}
+
+		const passwordHash = await bcrypt.hash(newPassword, 10);
+
+		user.hashedPassword = passwordHash;
+
+		return user.save;
+	} catch (error) {
+		throw new Error(error);
+	}
+};
+
 const deleteOne = async (id) => {
 	try {
 		const user = await User.findByPk(id);
@@ -71,5 +95,6 @@ export default {
 	getOneById,
 	getOneByEmail,
 	updateOne,
+	updatePassword,
 	deleteOne,
 };
