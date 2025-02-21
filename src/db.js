@@ -11,16 +11,30 @@ export const ROLES = {
 	USER: 'user',
 };
 
-const sequelize = new Sequelize('sqlite::memory:');
+const sequelize = new Sequelize({
+	dialect: 'sqlite',
+	storage: ':memory:',
+	logging: false,
+});
 
 export const User = sequelize.define('User', {
-	name: { type: DataTypes.STRING },
-	email: { type: DataTypes.STRING },
-	password: { type: DataTypes.STRING },
-	role: { type: DataTypes.ENUM, values: ROLES },
+	id: {
+		type: DataTypes.INTEGER,
+		primaryKey: true,
+		autoIncrement: true,
+	},
+	name: { type: DataTypes.STRING, notEmpty: true },
+	email: { type: DataTypes.STRING, unique: true, notEmpty: true },
+	hashedPassword: { type: DataTypes.STRING, notEmpty: true },
+	role: { type: DataTypes.STRING, values: ROLES },
 });
 
 export const Task = sequelize.define('Task', {
+	id: {
+		type: DataTypes.INTEGER,
+		primaryKey: true,
+		autoIncrement: true,
+	},
 	title: {
 		type: DataTypes.STRING,
 	},
@@ -29,9 +43,12 @@ export const Task = sequelize.define('Task', {
 		allowNull: true,
 	},
 	status: {
-		type: DataTypes.ENUM,
+		type: DataTypes.STRING,
 		values: STATUSES,
 	},
 });
+
+User.hasMany(Task);
+Task.belongsTo(User);
 
 export default sequelize;
