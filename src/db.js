@@ -17,36 +17,44 @@ const sequelize = new Sequelize({
 	logging: false,
 });
 
-export const User = sequelize.define('User', {
-	id: {
-		type: DataTypes.INTEGER,
-		primaryKey: true,
-		autoIncrement: true,
+export const User = sequelize.define(
+	'User',
+	{
+		id: {
+			type: DataTypes.INTEGER,
+			primaryKey: true,
+			autoIncrement: true,
+		},
+		name: { type: DataTypes.STRING, notEmpty: true },
+		email: { type: DataTypes.STRING, unique: true, notEmpty: true },
+		hashedPassword: { type: DataTypes.STRING, notEmpty: true },
+		role: { type: DataTypes.STRING, values: ROLES },
 	},
-	name: { type: DataTypes.STRING, notEmpty: true },
-	email: { type: DataTypes.STRING, unique: true, notEmpty: true },
-	hashedPassword: { type: DataTypes.STRING, notEmpty: true },
-	role: { type: DataTypes.STRING, values: ROLES },
-});
+	{ timestamps: false }
+);
 
-export const Task = sequelize.define('Task', {
-	id: {
-		type: DataTypes.INTEGER,
-		primaryKey: true,
-		autoIncrement: true,
+export const Task = sequelize.define(
+	'Task',
+	{
+		id: {
+			type: DataTypes.INTEGER,
+			primaryKey: true,
+			autoIncrement: true,
+		},
+		title: {
+			type: DataTypes.STRING,
+		},
+		description: {
+			type: DataTypes.STRING,
+			allowNull: true,
+		},
+		status: {
+			type: DataTypes.STRING,
+			values: STATUSES,
+		},
 	},
-	title: {
-		type: DataTypes.STRING,
-	},
-	description: {
-		type: DataTypes.STRING,
-		allowNull: true,
-	},
-	status: {
-		type: DataTypes.STRING,
-		values: STATUSES,
-	},
-});
+	{ timestamps: false }
+);
 
 User.hasMany(Task);
 Task.belongsTo(User);
