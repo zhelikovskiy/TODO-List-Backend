@@ -3,7 +3,8 @@ import userService from './user.service.js';
 const updatePassword = async (req, res) => {
 	try {
 		const { oldPassword, newPassword } = req.body;
-		const response = await userService.updatePassword(req.user.id, {
+
+		await userService.updatePassword(req.user.id, {
 			oldPassword,
 			newPassword,
 		});

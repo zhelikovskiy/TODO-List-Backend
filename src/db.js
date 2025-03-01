@@ -52,11 +52,19 @@ export const Task = sequelize.define(
 			type: DataTypes.STRING,
 			values: STATUSES,
 		},
+		userId: {
+			type: DataTypes.INTEGER,
+			allowNull: false,
+			references: {
+				model: User,
+				key: 'id',
+			},
+		},
 	},
 	{ timestamps: false }
 );
 
-User.hasMany(Task);
-Task.belongsTo(User);
+User.hasMany(Task, { foreignKey: 'userId' });
+Task.belongsTo(User, { foreignKey: 'userId' });
 
 export default sequelize;
