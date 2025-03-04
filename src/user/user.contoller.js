@@ -1,6 +1,6 @@
 import userService from './user.service.js';
 
-const updatePassword = async (req, res) => {
+const updatePassword = async (req, res, next) => {
 	try {
 		const { oldPassword, newPassword } = req.body;
 
@@ -11,7 +11,7 @@ const updatePassword = async (req, res) => {
 
 		return res.status(200).json({ message: 'Password updated successfully' });
 	} catch (err) {
-		return res.status(500).json({ error: err.message });
+		next(error);
 	}
 };
 

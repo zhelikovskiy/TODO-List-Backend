@@ -22,7 +22,7 @@ const createOne = async (data) => {
 
 		return user.save();
 	} catch (error) {
-		throw new Error(error);
+		throw error;
 	}
 };
 
@@ -31,7 +31,7 @@ const getOneById = async (id) => {
 		const user = await User.findByPk(id);
 		return user;
 	} catch (error) {
-		throw new Error(error);
+		throw error;
 	}
 };
 
@@ -40,7 +40,7 @@ const getOneByEmail = async (email) => {
 		const user = await User.findOne({ where: { email } });
 		return user;
 	} catch (error) {
-		throw new Error(error);
+		throw error;
 	}
 };
 
@@ -52,7 +52,7 @@ const updateOne = async (id, data) => {
 		});
 		return user;
 	} catch (error) {
-		throw new Error(error);
+		throw error;
 	}
 };
 
@@ -76,7 +76,7 @@ const updatePassword = async (id, data) => {
 
 		return user.save;
 	} catch (error) {
-		throw new Error(error);
+		throw error;
 	}
 };
 
@@ -86,7 +86,7 @@ const deleteOne = async (id) => {
 		await user.destroy();
 		return user;
 	} catch (error) {
-		throw new Error(error);
+		throw error;
 	}
 };
 

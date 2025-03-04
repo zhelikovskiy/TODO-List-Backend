@@ -13,7 +13,7 @@ const createOne = async (user, data) => {
 
 		return task;
 	} catch (error) {
-		throw new Error(error);
+		throw error;
 	}
 };
 
@@ -21,7 +21,7 @@ const getOneById = async (id) => {
 	try {
 		return Task.findByPk(id);
 	} catch (error) {
-		throw new Error(error);
+		throw error;
 	}
 };
 
@@ -29,7 +29,7 @@ const getAllByUser = async (user) => {
 	try {
 		return Task.findAll({ where: { userId: user.id } });
 	} catch (error) {
-		throw new Error(error);
+		throw error;
 	}
 };
 
@@ -43,7 +43,7 @@ const updateOne = async (task, data) => {
 
 		return task.save();
 	} catch (error) {
-		throw new Error(error);
+		throw error;
 	}
 };
 
@@ -51,7 +51,7 @@ const deleteOne = async (task) => {
 	try {
 		return task.destroy();
 	} catch (error) {
-		throw new Error(error);
+		throw error;
 	}
 };
 

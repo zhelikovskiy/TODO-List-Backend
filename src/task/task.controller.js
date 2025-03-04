@@ -1,7 +1,7 @@
 import taskService from './task.service.js';
 import userService from '../user/user.service.js';
 
-const createTask = async (req, res) => {
+const createTask = async (req, res, next) => {
 	try {
 		const user = await userService.getOneById(req.user.id);
 
@@ -9,21 +9,21 @@ const createTask = async (req, res) => {
 
 		return res.status(201).json({ message: 'Task created', data: task });
 	} catch (error) {
-		res.status(500).json({ message: error.message });
+		next(error);
 	}
 };
 
-const getTask = async (req, res) => {
+const getTask = async (req, res, next) => {
 	try {
 		const task = await taskService.getOneById(req.params.id);
 
 		return res.status(200).json({ data: task });
 	} catch (error) {
-		res.status(500).json({ message: error.message });
+		next(error);
 	}
 };
 
-const getTasks = async (req, res) => {
+const getTasks = async (req, res, next) => {
 	try {
 		const user = await userService.getOneById(req.user.id);
 
@@ -31,11 +31,11 @@ const getTasks = async (req, res) => {
 
 		return res.status(200).json({ data: tasks });
 	} catch (error) {
-		res.status(500).json({ message: error.message });
+		next(error);
 	}
 };
 
-const updateTask = async (req, res) => {
+const updateTask = async (req, res, next) => {
 	try {
 		const task = await taskService.getOneById(req.params.id);
 
@@ -53,11 +53,11 @@ const updateTask = async (req, res) => {
 
 		return res.status(200).json({ message: 'Task updated', data: updatedTask });
 	} catch (error) {
-		res.status(500).json({ message: error.message });
+		next(error);
 	}
 };
 
-const deleteTask = async (req, res) => {
+const deleteTask = async (req, res, next) => {
 	try {
 		const task = await taskService.getOneById(req.params.id);
 
@@ -75,7 +75,7 @@ const deleteTask = async (req, res) => {
 
 		return res.status(200).json({ message: 'Task deleted', data: deletedTask });
 	} catch (error) {
-		res.status(500).json({ message: error.message });
+		next(error);
 	}
 };
 

@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const register = async (req, res) => {
+const register = async (req, res, next) => {
 	try {
 		const user = await userService.createOne(req.body);
 
@@ -15,11 +15,11 @@ const register = async (req, res) => {
 
 		return res.status(201).json({ user, token });
 	} catch (error) {
-		return res.status(500).json({ error: error.message });
+		next(error);
 	}
 };
 
-const login = async (req, res) => {
+const login = async (req, res, next) => {
 	try {
 		const { email, password } = req.body;
 
@@ -44,7 +44,7 @@ const login = async (req, res) => {
 
 		return res.status(200).json({ user, token });
 	} catch (error) {
-		return res.status(500).json({ error: error.message });
+		next(error);
 	}
 };
 
