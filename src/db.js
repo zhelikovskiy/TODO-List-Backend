@@ -1,4 +1,7 @@
-import { Sequelize, DataTypes, ENUM } from 'sequelize';
+import { Sequelize, DataTypes } from 'sequelize';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export const STATUSES = {
 	PENDING: 'pending',
@@ -11,9 +14,12 @@ export const ROLES = {
 	USER: 'user',
 };
 
+const dbStorage =
+	process.env.DB_STORAGE === 'file' ? process.env.DB_FILE_PATH : ':memory:';
+
 const sequelize = new Sequelize({
 	dialect: 'sqlite',
-	storage: ':memory:',
+	storage: dbStorage,
 	logging: false,
 });
 
