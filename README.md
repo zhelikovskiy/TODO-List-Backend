@@ -1,5 +1,7 @@
 # TODO-List-Backend
 
+Hosted version: https://todo-list-backend-2hu0.onrender.com
+
 TODO-List-Backend is a backend application for managing tasks and users. It provides APIs for user authentication, task management, and user management. The application is built using Node.js, Express, Sequelize, and SQLite.
 
 ## Features
