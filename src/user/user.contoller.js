@@ -15,6 +15,17 @@ const updatePassword = async (req, res, next) => {
 	}
 };
 
+const getUserInfo = async (req, res, next) => {
+	try {
+		const user = await userService.getOneById(req.user.id);
+
+		return res.status(200).json({ user });
+	} catch (err) {
+		next(error);
+	}
+};
+
 export default {
 	updatePassword,
+	getUserInfo,
 };
