@@ -1,5 +1,7 @@
 # TODO-List-Backend
 
+Hosted version: https://todo-list-backend-2hu0.onrender.com
+
 TODO-List-Backend is a backend application for managing tasks and users. It provides APIs for user authentication, task management, and user management. The application is built using Node.js, Express, Sequelize, and SQLite.
 
 ## Features
@@ -56,7 +58,7 @@ DB_FILE_PATH=./database.sqlite # if using file storage
 To start the application, run:
 
 ```bash
-npm start
+npm run dev
 ```
 
 The application will be available at http://localhost:3000.
@@ -66,7 +68,7 @@ The application will be available at http://localhost:3000.
 To run the tests, use the following command:
 
 ```bash
-npm test
+npm run test
 ```
 
 ## API Endpoints
