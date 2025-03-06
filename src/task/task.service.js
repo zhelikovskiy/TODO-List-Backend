@@ -1,4 +1,5 @@
 import { Task, User } from '../db.js';
+import { STATUSES } from '../db.js';
 
 const createOne = async (user, data) => {
 	try {
@@ -7,7 +8,7 @@ const createOne = async (user, data) => {
 		const task = await Task.create({
 			title,
 			description,
-			status,
+			status: status ? status : STATUSES.PENDING,
 			userId: user.id,
 		});
 

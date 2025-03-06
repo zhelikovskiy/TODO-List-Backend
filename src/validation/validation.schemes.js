@@ -20,7 +20,7 @@ const updateUserSchema = z.object({
 const createTaskSchema = z.object({
 	title: z.string().min(3).max(50),
 	description: z.string().max(255).optional(),
-	status: z.enum([STATUSES.PENDING, STATUSES.IN_PROGRESS]),
+	status: z.enum([STATUSES.PENDING, STATUSES.IN_PROGRESS]).optional(),
 });
 
 const updateTaskSchema = z.object({

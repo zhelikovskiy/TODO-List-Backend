@@ -7,7 +7,7 @@ const createTask = async (req, res, next) => {
 
 		const task = await taskService.createOne(user, req.body);
 
-		return res.status(201).json({ message: 'Task created', data: task });
+		return res.status(201).json({ message: 'Task created', task: task });
 	} catch (error) {
 		next(error);
 	}
@@ -17,7 +17,7 @@ const getTask = async (req, res, next) => {
 	try {
 		const task = await taskService.getOneById(req.params.id);
 
-		return res.status(200).json({ data: task });
+		return res.status(200).json({ task: task });
 	} catch (error) {
 		next(error);
 	}
@@ -29,7 +29,7 @@ const getTasks = async (req, res, next) => {
 
 		const tasks = await taskService.getAllByUser(user);
 
-		return res.status(200).json({ data: tasks });
+		return res.status(200).json({ tasks: tasks });
 	} catch (error) {
 		next(error);
 	}
@@ -51,7 +51,7 @@ const updateTask = async (req, res, next) => {
 
 		const updatedTask = await taskService.updateOne(task, req.body);
 
-		return res.status(200).json({ message: 'Task updated', data: updatedTask });
+		return res.status(200).json({ message: 'Task updated', task: updatedTask });
 	} catch (error) {
 		next(error);
 	}
