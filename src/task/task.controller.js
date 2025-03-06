@@ -71,9 +71,9 @@ const deleteTask = async (req, res, next) => {
 				.json({ error: 'You do not have permission to access this task' });
 		}
 
-		const deletedTask = await taskService.deleteOne(task);
+		await taskService.deleteOne(task);
 
-		return res.status(200).json({ message: 'Task deleted', data: deletedTask });
+		return res.status(204).json({ message: 'Task deleted' });
 	} catch (error) {
 		next(error);
 	}
