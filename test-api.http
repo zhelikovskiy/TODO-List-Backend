@@ -1,0 +1,98 @@
+# @name register
+POST https://todo-list-backend-2hu0.onrender.com/api/auth/register
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "password": "qwerty123",
+    "role": "user"
+}
+
+###
+@authToken = {{register.response.body.token}}
+
+
+# @name login
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "john.doe@example.com",
+    "password": "qwerty123"
+}
+
+###
+@authToken = {{login.response.body.token}}
+
+# @name get_user_info
+GET http://localhost:3000/api/user/info
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name update-password
+PATCH  http://localhost:3000/api/user/password
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+    "oldPassword": "qwerty123",
+    "newPassword": "123qwerty"
+}
+
+###
+
+
+# @name create_task
+@task_number =  {{$randomInt 1 100}}
+POST http://localhost:3000/api/tasks/
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+    "title": "Task {{task_number}}",
+    "description": "Task {{task_number}} description",
+    "status": "pending"
+}
+
+###
+@task_id = {{create_task.response.body.data.id}}
+
+
+# @name get_task_by_id
+GET http://localhost:3000/api/tasks/{{task_id}}
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+
+# @name get_all_tasks
+GET http://localhost:3000/api/tasks/
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+
+# @name update_task
+@new_task_number = {{$randomInt 1 100}}
+PUT http://localhost:3000/api/tasks/{{task_id}}
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+    "title": "Task {{new_task_number}}",
+    "description": "Task {{new_task_number}} description",
+    "status": "completed"
+}
+
+###
+
+
+# @name delete_task
+DELETE http://localhost:3000/api/tasks/{{task_id}}
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
