@@ -56,7 +56,7 @@ DB_FILE_PATH=./database.sqlite # if using file storage
 To start the application, run:
 
 ```bash
-npm start
+npm run dev
 ```
 
 The application will be available at http://localhost:3000.
@@ -66,7 +66,7 @@ The application will be available at http://localhost:3000.
 To run the tests, use the following command:
 
 ```bash
-npm test
+npm run test
 ```
 
 ## API Endpoints
